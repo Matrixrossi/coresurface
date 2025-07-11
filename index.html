@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PaveVision — AI Road & Pavement Damage Detection</title>
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8fbfd;
+    color: #222;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Header / Hero */
+  header {
+    background: linear-gradient(135deg, #007acc 0%, #005f99 100%);
+    color: white;
+    padding: 100px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header h1 {
+    font-size: 3.6rem;
+    margin-bottom: 0.3em;
+    font-weight: 900;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  header p {
+    font-size: 1.4rem;
+    margin-bottom: 1.8em;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+  }
+  header button {
+    background-color: #ff6b00;
+    border: none;
+    padding: 18px 36px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(255,107,0,0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  header button:hover {
+    background-color: #e65a00;
+    box-shadow: 0 12px 20px rgba(230,90,0,0.6);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 120%;
+    top: -20%;
+    left: 0;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+    opacity: 0.12;
+    filter: blur(5px);
+    z-index: 0;
+  }
+  header * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sections */
+  section {
+    padding: 60px 0;
+  }
+  section h2 {
+    font-size: 2.6rem;
+    color: #007acc;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  section p {
+    max-width: 750px;
+    margin: 0 auto 40px auto;
+    font-size: 1.12rem;
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+  }
+
+  /* Features & Benefits grid */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+  .card svg {
+    width: 50px;
+    height: 50px;
+    fill: #007acc;
+    margin-bottom: 18px;
+  }
+  .card h3 {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  .card p {
+    font-weight: 400;
+    color: #555;
+  }
+
+  /* Form */
+  form {
+    background: white;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 35px 30px 45px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+  form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #007acc;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1.8px solid #ccc;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+  }
+  form input:focus, form textarea:focus {
+    border-color: #007acc;
+    outline: none;
+  }
+  form button {
+    background: #007acc;
+    color: white;
+    border: none;
+    padding: 14px 0;
+    width: 100%;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form button:hover {
+    background: #005f99;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 28px 20px;
+    background: #f2f6fa;
+    color: #555;
+    font-size: 0.9rem;
+    border-top: 1px solid #d9e3f0;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 2.5rem;
+    }
+    section h2 {
+      font-size: 2rem;
+    }
+    .card svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PaveVision</h1>
+  <p>AI-powered road & pavement damage detection for smarter repairs and safer communities.</p>
+  <button onclick="document.getElementById('earlyAccess').scrollIntoView({behavior:'smooth'})">Request Early Access</button>
+</header>
+
+<main class="container">
+
+  <section>
+    <h2>About PaveVision</h2>
+    <p>PaveVision is an innovative mobile app that leverages cutting-edge AI technology to automatically detect cracks, potholes, and other types of road and pavement damage using just your phone’s camera. Designed for contractors, councils, and infrastructure professionals, PaveVision helps streamline inspections, save costs, and improve public safety.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <div class="grid-3">
+
+      <article class="card" aria-label="Automatic damage detection">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2a30 30 0 1030 30A30.034 30.034 0 0032 2zm0 56a26 26 0 1126-26 26.03 26.03 0 01-26 26z"/><path d="M44 18l-8 8-4-4-10 10 6 6 10-10-4-4 8-8z"/></svg>
+        <h3>Automatic Damage Detection</h3>
+        <p>AI-driven detection of cracks, potholes, and road faults with instant identification.</p>
+      </article>
+
+      <article class="card" aria-label="Detailed damage reports">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M48 6H16a4 4 0 00-4 4v44a4 4 0 004 4h32a4 4 0 004-4V10a4 4 0 00-4-4zm-1 42H17v-4h30zm0-10H17v-4h30zm0-10H17v-4h30z"/></svg>
+        <h3>Detailed Damage Reports</h3>
+        <p>Generate comprehensive reports with photos, locations, and repair recommendations.</p>
+      </article>
+
+      <article class="card" aria-label="Analytics dashboard">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 42h8v10h-8zm14-18h8v28h-8zm14 8h8v20h-8z"/></svg>
+        <h3>Analytics Dashboard</h3>
+        <p>Track trends, prioritize repairs, and make data-driven decisions over time.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Why Choose PaveVision?</h2>
+    <div class="grid-3">
+
+      <article class="card" aria-label="Save time and money">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6a26 26 0 1026 26A26.03 26.03 0 0032 6zm0 48a22 22 0 1122-22 22.025 22.025 0 01-22 22z"/><path d="M34 20h-4v16h4zm-2 24a4 4 0 104-4 4.005 4.005 0 00-4 4z"/></svg>
+        <h3>Save Time & Money</h3>
+        <p>Reduce manual inspections and costly repairs with quick automated scanning.</p>
+      </article>
+
+      <article class="card" aria-label="Improve safety">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 44h32v6H16zm6-24h20v18H22z"/></svg>
+        <h3>Improve Public Safety</h3>
+        <p>Detect hazards early to ensure timely repairs and safer roadways for everyone.</p>
+      </article>
+
+      <article class="card" aria-label="Easy to use">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#007acc" stroke-width="4"/><path d="M20 32h24M32 20v24" stroke="#007acc" stroke-width="4" stroke-linecap="round"/></svg>
+        <h3>User-Friendly Interface</h3>
+        <p>Intuitive app design makes inspections fast and accessible to all skill levels.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="earlyAccess">
+    <h2>Request Early Access</h2>
+    <form id="signupForm" aria-label="Early access signup form" novalidate>
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" required placeholder="Jane Doe" autocomplete="name" />
+
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required placeholder="jane@example.com" autocomplete="email" />
+
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" rows="4" placeholder="Let us know your thoughts or questions"></textarea>
+
+      <button type="submit">Get Early Access</button>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 PaveVision — Built by [Your Name]. All rights reserved.
+</footer>
+
+<script>
+  // Simple form submission alert with basic validation
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = this.name.value.trim();
+    const email = this.email.value.trim();
+
+    if (!name) {
+      alert('Please enter your full name.');
+      this.name.focus();
+      return;
+    }
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      this.email.focus();
+      return;
+    }
+
+    alert(`Thanks, ${name}! We will contact you at ${email} soon.`);
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
