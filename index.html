@@ -1,175 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CoreSurface | Infrastructure & Road Resurfacing Solutions</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreSurface | Infrastructure & Road Surfacing Solutions</title>
   <style>
     :root {
-      --primary: #1a1f29;
-      --accent: #0073e6;
-      --bg: #f5f7fa;
-      --text: #333;
+      --primary-color: #0d1b2a;
+      --secondary-color: #1b263b;
+      --accent-color: #415a77;
+      --text-color: #212529;
+      --light-bg: #f4f4f4;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
       line-height: 1.6;
+      background-color: var(--light-bg);
+      color: var(--text-color);
     }
 
     header {
-      background-color: var(--primary);
+      background: url('https://images.unsplash.com/photo-1606761568499-b98c1d6d48d7?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
       color: white;
-      padding: 2rem;
+      padding: 6rem 2rem;
       text-align: center;
+      position: relative;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 0;
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 3rem;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      max-width: 750px;
+      margin: 0 auto;
     }
 
     nav {
+      background-color: var(--primary-color);
       display: flex;
       justify-content: center;
-      background-color: #11151c;
       padding: 1rem;
     }
 
     nav a {
       color: white;
-      margin: 0 1.5rem;
       text-decoration: none;
+      margin: 0 1.5rem;
       font-weight: 500;
+      font-size: 1rem;
     }
 
     nav a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      background: url('https://images.unsplash.com/photo-1581090700227-1e7a5d526f30') center/cover no-repeat;
-      color: white;
-      padding: 6rem 2rem;
-      text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 2.75rem;
-      margin-bottom: 1rem;
+      text-decoration: underline;
     }
 
     section {
-      padding: 4rem 2rem;
       max-width: 1200px;
-      margin: auto;
+      margin: 4rem auto;
+      padding: 0 2rem;
     }
 
     section h2 {
       font-size: 2.25rem;
-      color: var(--primary);
       margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      color: #444;
+      max-width: 900px;
     }
 
     .grid {
       display: grid;
-      gap: 2rem;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
     .card {
-      background: white;
+      background: var(--white);
+      border: 1px solid #ddd;
       padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     }
 
     .card h3 {
-      color: var(--accent);
-      margin-top: 0;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .pavevision {
+      background: #e9ecef;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .pavevision h2 {
+      color: var(--secondary-color);
+    }
+
+    .pavevision p {
+      max-width: 800px;
+      margin: 1rem auto;
+      font-size: 1.1rem;
     }
 
     footer {
-      background-color: var(--primary);
+      background: var(--primary-color);
       color: white;
+      padding: 2rem;
       text-align: center;
-      padding: 2rem 1rem;
     }
 
     footer p {
-      margin: 0.5rem 0;
+      margin: 0.25rem 0;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>CoreSurface</h1>
-    <p>Precision. Innovation. Infrastructure.</p>
+    <p>Modern Infrastructure. Precision Surfacing. Technology-Driven Solutions.</p>
   </header>
 
   <nav>
     <a href="#about">About</a>
     <a href="#services">Services</a>
-    <a href="#tech">PaveVision</a>
+    <a href="#pavevision">PaveVision</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <section class="hero">
-    <h2>Engineering Smarter Roads for the Future</h2>
-    <p>CoreSurface delivers cutting-edge road resurfacing, digital infrastructure solutions, and AI-driven inspection technology to keep the UK moving.</p>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <p>CoreSurface is a UK-based road resurfacing and infrastructure technology provider. We combine traditional tarmac and civil engineering expertise with next-generation digital tools to deliver high-quality, long-lasting road and surface solutions. Our mission is simple: to create roads that perform better, last longer, and are safer for everyone.</p>
+  <section id="about" class="intro">
+    <h2>About CoreSurface</h2>
+    <p>We are a UK-based civil engineering and surfacing contractor, delivering next-generation solutions for highways, local authorities, private estates, and commercial clients. From asphalt laying to high-tech pavement diagnostics, CoreSurface represents quality, safety, and future-focused delivery.</p>
   </section>
 
   <section id="services">
-    <h2>Our Services</h2>
+    <h2>Our Core Services</h2>
     <div class="grid">
       <div class="card">
         <h3>Road Resurfacing</h3>
-        <p>High-performance tarmac and bitumen surfacing services for highways, local roads, and private projects.</p>
+        <p>Comprehensive bituminous and asphalt surfacing for carriageways, motorways, and private networks. Built to specification and regulation.</p>
       </div>
       <div class="card">
-        <h3>Digital Condition Surveys</h3>
-        <p>Advanced road inspections and mapping powered by our PaveVision mobile AI platform.</p>
+        <h3>Pothole & Patch Repairs</h3>
+        <p>Rapid-response surface defect correction and structural patching — minimizing downtime and maximising durability.</p>
       </div>
       <div class="card">
-        <h3>Maintenance Contracts</h3>
-        <p>Ongoing support for local authorities, infrastructure firms, and property developers.</p>
+        <h3>Industrial Surfacing</h3>
+        <p>Full surfacing and construction for warehousing, logistic hubs, forecourts and retail premises. Built for HGV and heavy-duty traffic.</p>
       </div>
       <div class="card">
-        <h3>AI-Powered Reporting</h3>
-        <p>Automated condition reports, pothole detection, and surface scoring with cloud dashboards.</p>
+        <h3>Asset Assessment & Condition Surveys</h3>
+        <p>Using our in-house AI tech, we digitally assess road surface quality and degradation patterns across highways and estates.</p>
       </div>
     </div>
   </section>
 
-  <section id="tech">
-    <h2>PaveVision – Surface Intelligence</h2>
-    <p>Our proprietary app, PaveVision, turns any smartphone into a road surveying device. Contractors, councils, and transport teams can now detect cracks, potholes, and wear in real-time using AI. Built for scale, PaveVision lowers inspection costs and accelerates asset planning.</p>
-    <ul>
-      <li>Smartphone-based road inspections</li>
-      <li>Real-time AI damage detection</li>
-      <li>Exportable reports for GIS/CRM systems</li>
-    </ul>
-  </section>
+  <div class="pavevision" id="pavevision">
+    <h2>PaveVision – A CSF Company</h2>
+    <p><strong>PaveVision</strong> is CoreSurface's proprietary pavement condition technology — built to deliver real-time, visual diagnostics from any smartphone. Designed for councils, engineers, and contractors, it enables instant detection of road damage, including potholes, cracks, and rutting.</p>
+    <p><strong>Benefits:</strong> Real-time reporting • Exportable condition maps • Integrates with asset management systems • Minimal training required</p>
+  </div>
 
   <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Whether you're managing local roads or running national contracts, CoreSurface can help you deliver lasting results with smarter tools and services.</p>
+    <h2>Contact & Enquiries</h2>
     <p><strong>Email:</strong> <a href="mailto:contact@coresurface.co.uk">contact@coresurface.co.uk</a></p>
     <p><strong>Phone:</strong> +44 (0) 1234 567 890</p>
-    <p><strong>Address:</strong> CoreSurface HQ, Industrial Way, Sheffield, S1 2AB</p>
+    <p><strong>Head Office:</strong> CoreSurface Ltd, Infrastructure Way, Sheffield, S1 2AB</p>
   </section>
 
   <footer>
     <p>&copy; 2025 CoreSurface. All rights reserved.</p>
-    <p>Building better roads through technology and trust.</p>
+    <p>CoreSurface | Making Roads Perfect</p>
   </footer>
 </body>
 </html>
